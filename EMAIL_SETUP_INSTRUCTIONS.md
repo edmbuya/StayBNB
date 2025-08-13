@@ -1,7 +1,7 @@
 # Email Notification Setup Instructions
 
 ## Overview
-Your Roamer Respite booking website now includes email notifications that will send booking details to **respitere14@gmail.com** whenever a customer completes a booking.
+Your Roamer Respite booking website now includes email notifications that will send booking details to **Roamersrespite1@gmail.com** whenever a customer completes a booking.
 
 ## Setup Steps
 
@@ -14,7 +14,7 @@ Your Roamer Respite booking website now includes email notifications that will s
 1. In EmailJS dashboard, go to "Email Services"
 2. Click "Add New Service"
 3. Select "Gmail"
-4. Click "Connect Account" and authorize with your Gmail (respitere14@gmail.com)
+4. Click "Connect Account" and authorize with your Gmail (Roamersrespite1@gmail.com)
 5. Copy the **Service ID** (you'll need this later)
 
 ### 3. Create Email Template
@@ -87,7 +87,7 @@ const response = await emailjs.send(
 1. Save all changes
 2. Go to your website
 3. Complete a test booking
-4. Check your email (respitere14@gmail.com) for the notification
+4. Check your email (Roamersrespite1@gmail.com) for the notification
 
 ## Free Plan Limits
 - EmailJS free plan allows 200 emails per month

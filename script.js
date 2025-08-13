@@ -389,7 +389,7 @@ function showSuccessModal(propertyName, totalPrice, paymentMethod) {
                             You will receive a confirmation email shortly with all the details and check-in instructions.
                         </p>
                         <div class="mt-4">
-                            <a href="https://wa.me/254700123456?text=Hello! I just completed a booking (Ref: YH${Date.now().toString().slice(-6)}) and would like to confirm the details." target="_blank" class="btn btn-success">
+                            <a href="https://wa.me/254740062654?text=Hello! I just completed a booking (Ref: YH${Date.now().toString().slice(-6)}) and would like to confirm the details." target="_blank" class="btn btn-success">
                                 <i class="fab fa-whatsapp me-2"></i>
                                 Contact us on WhatsApp
                             </a>
@@ -457,7 +457,7 @@ async function sendBookingNotificationEmail() {
         
         // Email template parameters
         const templateParams = {
-            to_email: 'respitere14@gmail.com',
+            to_email: 'Roamersrespite1@gmail.com',
             to_name: 'Roamer Respite Team',
             subject: `New Booking: ${propertyName} - ${bookingReference}`,
             booking_reference: bookingReference,
