@@ -1,5 +1,10 @@
 // YourHost BnB Website JavaScript
 
+// Initialize EmailJS
+(function() {
+    emailjs.init('YOUR_PUBLIC_KEY'); // This will be provided in setup instructions
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initializeDatePickers();
@@ -299,27 +304,44 @@ function completeBooking() {
     bookingBtn.classList.add('loading');
     bookingBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
     
-    // Simulate booking process
-    setTimeout(() => {
-        // Get booking details
-        const propertySelect = document.getElementById('selectedProperty');
-        const [propertyName, pricePerNight] = propertySelect.value.split('|');
-        const totalPrice = calculateTotalPrice();
-        const paymentMethodText = getPaymentMethodText(paymentMethod.value);
-        
-        // Show success message
-        showSuccessModal(propertyName, totalPrice, paymentMethodText);
-        
-        // Reset button
-        bookingBtn.classList.remove('loading');
-        bookingBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i>Complete Booking & Pay';
-        
-        // Reset form after delay
-        setTimeout(() => {
-            resetBookingForm();
-        }, 3000);
-        
-    }, 2000);
+    // Send booking notification email and process booking
+    sendBookingNotificationEmail()
+        .then(() => {
+            // Get booking details
+            const propertySelect = document.getElementById('selectedProperty');
+            const [propertyName, pricePerNight] = propertySelect.value.split('|');
+            const totalPrice = calculateTotalPrice();
+            const paymentMethodText = getPaymentMethodText(paymentMethod.value);
+            
+            // Show success message
+            showSuccessModal(propertyName, totalPrice, paymentMethodText);
+            
+            // Reset button
+            bookingBtn.classList.remove('loading');
+            bookingBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i>Complete Booking & Pay';
+            
+            // Reset form after delay
+            setTimeout(() => {
+                resetBookingForm();
+            }, 3000);
+        })
+        .catch(error => {
+            console.error('Error sending notification:', error);
+            // Still show success to user, but log the error
+            const propertySelect = document.getElementById('selectedProperty');
+            const [propertyName, pricePerNight] = propertySelect.value.split('|');
+            const totalPrice = calculateTotalPrice();
+            const paymentMethodText = getPaymentMethodText(paymentMethod.value);
+            
+            showSuccessModal(propertyName, totalPrice, paymentMethodText);
+            
+            bookingBtn.classList.remove('loading');
+            bookingBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i>Complete Booking & Pay';
+            
+            setTimeout(() => {
+                resetBookingForm();
+            }, 3000);
+        });
 }
 
 function calculateTotalPrice() {
@@ -412,6 +434,79 @@ function resetBookingForm() {
     
     // Hide booking summary
     document.getElementById('bookingSummary').style.display = 'none';
+}
+
+// Email Notification Function
+async function sendBookingNotificationEmail() {
+    try {
+        // Get all booking details
+        const propertySelect = document.getElementById('selectedProperty');
+        const [propertyName, pricePerNight] = propertySelect.value.split('|');
+        const checkin = new Date(document.getElementById('bookingCheckin').value);
+        const checkout = new Date(document.getElementById('bookingCheckout').value);
+        const nights = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+        const totalPrice = nights * parseInt(pricePerNight);
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const guests = document.getElementById('guestCount').value;
+        const specialRequests = document.getElementById('specialRequests').value || 'None';
+        const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+        const bookingReference = 'YH' + Date.now().toString().slice(-6);
+        
+        // Email template parameters
+        const templateParams = {
+            to_email: 'respitere14@gmail.com',
+            to_name: 'YourHost Team',
+            subject: `New Booking: ${propertyName} - ${bookingReference}`,
+            booking_reference: bookingReference,
+            guest_name: `${firstName} ${lastName}`,
+            guest_email: email,
+            guest_phone: phone,
+            property_name: propertyName,
+            checkin_date: checkin.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            }),
+            checkout_date: checkout.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            }),
+            nights: nights,
+            guests: guests,
+            rate_per_night: `KSh ${parseInt(pricePerNight).toLocaleString()}`,
+            total_amount: `KSh ${totalPrice.toLocaleString()}`,
+            payment_method: getPaymentMethodText(paymentMethod),
+            special_requests: specialRequests,
+            booking_datetime: new Date().toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
+        };
+
+        // Send email using EmailJS
+        const response = await emailjs.send(
+            'YOUR_SERVICE_ID', // Will be provided in setup instructions
+            'YOUR_TEMPLATE_ID', // Will be provided in setup instructions
+            templateParams
+        );
+
+        console.log('Booking notification sent successfully:', response);
+        return response;
+        
+    } catch (error) {
+        console.error('Failed to send booking notification:', error);
+        throw error;
+    }
 }
 
 // Form Validation
