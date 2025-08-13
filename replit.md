@@ -1,8 +1,8 @@
-# YourHost - Luxury Vacation Rentals & Serviced Apartments
+# Roamer Respite - Luxury Vacation Rentals & Serviced Apartments
 
 ## Overview
 
-YourHost is a modern vacation rental and serviced apartments booking website built as a single-page application. The platform focuses on providing a luxury accommodation booking experience with features like property search, date selection, booking management, and property filtering. The website emphasizes a clean, professional design with smooth user interactions and responsive layouts suitable for both desktop and mobile users.
+Roamer Respite is a modern vacation rental and serviced apartments booking website built as a single-page application. The platform focuses on providing a luxury accommodation booking experience with features like property search, date selection, booking management, and property filtering. The website emphasizes a clean, professional design with smooth user interactions and responsive layouts suitable for both desktop and mobile users.
 
 ## User Preferences
 

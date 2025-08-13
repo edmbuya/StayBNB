@@ -1,7 +1,7 @@
 # Email Notification Setup Instructions
 
 ## Overview
-Your YourHost booking website now includes email notifications that will send booking details to **respitere14@gmail.com** whenever a customer completes a booking.
+Your Roamer Respite booking website now includes email notifications that will send booking details to **respitere14@gmail.com** whenever a customer completes a booking.
 
 ## Setup Steps
 
@@ -25,7 +25,7 @@ Your YourHost booking website now includes email notifications that will send bo
 ```
 Subject: New Booking: {{property_name}} - {{booking_reference}}
 
-Dear YourHost Team,
+Dear Roamer Respite Team,
 
 You have received a new booking! Here are the details:
 
@@ -54,7 +54,7 @@ Payment Method: {{payment_method}}
 {{special_requests}}
 
 ---
-YourHost Booking System
+Roamer Respite Booking System
 ```
 
 4. Save the template and copy the **Template ID**

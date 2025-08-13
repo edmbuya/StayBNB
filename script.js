@@ -1,4 +1,4 @@
-// YourHost BnB Website JavaScript
+// Roamer Respite BnB Website JavaScript
 
 // Initialize EmailJS
 (function() {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSmoothScrolling();
     initializeAnimations();
     
-    console.log('YourHost website initialized successfully!');
+    console.log('Roamer Respite website initialized successfully!');
 });
 
 // Date Picker Initialization
@@ -137,8 +137,8 @@ function updateBookingSummary() {
     document.getElementById('summaryProperty').textContent = propertyName;
     document.getElementById('summaryDates').textContent = `${checkin.toLocaleDateString()} - ${checkout.toLocaleDateString()}`;
     document.getElementById('summaryNights').textContent = `${nights} night${nights > 1 ? 's' : ''}`;
-    document.getElementById('summaryRate').textContent = `KSh ${parseInt(pricePerNight).toLocaleString()}`;
-    document.getElementById('summaryTotal').textContent = `KSh ${totalPrice.toLocaleString()}`;
+    document.getElementById('summaryRate').textContent = `$${parseInt(pricePerNight).toLocaleString()}`;
+    document.getElementById('summaryTotal').textContent = `$${totalPrice.toLocaleString()}`;
     
     document.getElementById('bookingSummary').style.display = 'block';
 }
@@ -274,11 +274,11 @@ function updateFinalSummary() {
         </div>
         <div class="summary-item">
             <span>Rate per night:</span>
-            <span>KSh ${parseInt(pricePerNight).toLocaleString()}</span>
+            <span>$${parseInt(pricePerNight).toLocaleString()}</span>
         </div>
         <div class="summary-item total">
             <span>Total Amount:</span>
-            <span>KSh ${totalPrice.toLocaleString()}</span>
+            <span>$${totalPrice.toLocaleString()}</span>
         </div>
     `;
     
@@ -381,7 +381,7 @@ function showSuccessModal(propertyName, totalPrice, paymentMethod) {
                         <h4>Thank You!</h4>
                         <p class="lead">Your booking for <strong>${propertyName}</strong> has been confirmed.</p>
                         <div class="booking-details bg-light p-3 rounded">
-                            <p><strong>Total Amount:</strong> KSh ${totalPrice.toLocaleString()}</p>
+                            <p><strong>Total Amount:</strong> $${totalPrice.toLocaleString()}</p>
                             <p><strong>Payment Method:</strong> ${paymentMethod}</p>
                             <p><strong>Booking Reference:</strong> YH${Date.now().toString().slice(-6)}</p>
                         </div>
@@ -458,7 +458,7 @@ async function sendBookingNotificationEmail() {
         // Email template parameters
         const templateParams = {
             to_email: 'respitere14@gmail.com',
-            to_name: 'YourHost Team',
+            to_name: 'Roamer Respite Team',
             subject: `New Booking: ${propertyName} - ${bookingReference}`,
             booking_reference: bookingReference,
             guest_name: `${firstName} ${lastName}`,
@@ -479,8 +479,8 @@ async function sendBookingNotificationEmail() {
             }),
             nights: nights,
             guests: guests,
-            rate_per_night: `KSh ${parseInt(pricePerNight).toLocaleString()}`,
-            total_amount: `KSh ${totalPrice.toLocaleString()}`,
+            rate_per_night: `$${parseInt(pricePerNight).toLocaleString()}`,
+            total_amount: `$${totalPrice.toLocaleString()}`,
             payment_method: getPaymentMethodText(paymentMethod),
             special_requests: specialRequests,
             booking_datetime: new Date().toLocaleString('en-US', {
@@ -726,4 +726,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-console.log('YourHost BnB Website - All systems ready! 🏠✨');
+console.log('Roamer Respite BnB Website - All systems ready! 🏠✨');
